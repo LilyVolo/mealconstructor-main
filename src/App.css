@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.mainLayOut {
+  background-color: rgb(228, 239, 233);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 10% minmax(0, 1fr) 10%;
+  gap: 10px;
+}
+
+.header {
+  grid-column: 1 / -1;
+  background-color: #9E99BF;
+  color: #595959;;
+  padding: 20px;
+  text-align: center;
+}
+
+.main-container {
+  grid-column: 2 / 3;
+  background-color: #F2F2F2;
+  padding: 20px;
+}
+
+.footer {
+  grid-column: 1 / -1;
+  background-color: #595959;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
