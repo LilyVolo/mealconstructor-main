@@ -7,7 +7,11 @@ import { AuthContext } from "../context/auth.context"
 const Header = () => {
 
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
-    const { isLoggedIn, user } = useContext(AuthContext)
+    const { 
+      isLoggedIn,
+      user,                  
+      logOutUser              
+    } = useContext(AuthContext);
   
     const toggleMenu = () => {
       setIsOpen(!isOpen);
@@ -63,6 +67,8 @@ const Header = () => {
             <>
               <button>Projects</button>
               <button>Logout</button>
+              <button onClick={logOutUser}>Logout</button>
+              <span>{user && user.name}</span>
             </>
           )}
     </div>

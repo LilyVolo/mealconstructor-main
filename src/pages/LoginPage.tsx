@@ -3,11 +3,15 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
+
 
 const API_URL = "http://localhost:5005";
 
 
-function LoginPage(props) {
+
+function LoginPage(props: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -15,24 +19,26 @@ function LoginPage(props) {
   const navigate = useNavigate()
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
 
-  e.preventDefault();
-  const requestBody = { email, password };
-
-  axios.post(`${API_URL}/auth/login`, requestBody)
-    .then((response) => {
-      console.log('JWT token', response.data.authToken );
-      
-      storeToken(response.data.authToken);      
-      authenticateUser();   
-      navigate('/');
-    })
-    .catch((error) => {
-      const errorDescription = error.response.data.message;
-      setErrorMessage(errorDescription);
-    })
+  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const requestBody = { email, password };
+ 
+    axios.post(`${API_URL}/auth/login`, requestBody)
+      .then((response) => {
+        console.log('JWT token', response.data.authToken );
+        
+        storeToken(response.data.authToken);       
+        authenticateUser()
+        navigate('/');
+      })
+      .catch((error) => {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      })
+  }
 
   
   return (

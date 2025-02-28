@@ -7,7 +7,7 @@ import axios from "axios";
 const API_URL = "http://localhost:5005"; //backend
 
 
-function SignupPage(props) {
+function SignupPage(props: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -15,12 +15,12 @@ function SignupPage(props) {
 
   const navigate = useNavigate(); //перенаправления после успешной регистрации
   
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
-  const handleName = (e) => setName(e.target.value);
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value);
 
   
-  const handleSignupSubmit = (e) => {
+  const handleSignupSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const requestBody = { email, password, name }
     axios.post(`${API_URL}/auth/signup`, requestBody)
@@ -31,7 +31,7 @@ function SignupPage(props) {
       const errorDescription = error.response.data.message;
       setErrorMessage(errorDescription);
     })
-};
+}
   
 
   

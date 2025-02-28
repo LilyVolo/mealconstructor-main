@@ -4,13 +4,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 const API_URL = "http://localhost:5005";
 
-const AuthContext = React.createContext({
-  isLoggedIn: false,
-  isLoading: true,
-  user: null,
-  loginUser: (token: string) => {},
-  logoutUser: () => {},
-});
+interface User {
+  id: string;
+  email: string;
+  name: string;
+}
+
+export interface AuthContextType {
+  isLoggedIn: boolean;
+  isLoading: boolean;
+  user: User | null;
+  storeToken:(token: string) => void;
+  authenticateUser:() => void
+}
+
+
+const AuthContext = React.createContext<AuthContextType | null>(null)
 
 
 function AuthProviderWrapper(props:any) {
@@ -58,10 +67,20 @@ function AuthProviderWrapper(props:any) {
     }   
   }
 
+  const removeToken = () => {                   
+    localStorage.removeItem("authToken");
+  }
+ 
+ 
+  const logOutUser = () => {     
+    removeToken();   
+    authenticateUser();
+  }  
+ 
   
-  useEffect(() => {                 //  <==  ADD                                   
-    // to be updated in the next step
-  }, []);
+  useEffect(() => {                                    
+    authenticateUser();                  
+   }, []);
 
   
   return (                                                   

@@ -3,8 +3,8 @@ import RecipePage from'./pages/RecipePage.tsx'
 import {Routes, Route } from "react-router-dom"
 import Header from './components/Header.tsx'
 import Footer from './components/Footer.tsx'
-import SignupPage from './pages/SignupPage.jsx'
-import LoginPage from './pages/LoginPage.jsx'
+import SignupPage from './pages/SignupPage.tsx'
+import LoginPage from './pages/LoginPage.tsx'
 
 import './App.css'
 
