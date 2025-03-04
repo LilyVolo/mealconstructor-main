@@ -15,12 +15,23 @@ export interface AuthContextType {
   isLoading: boolean;
   user: User | null;
   storeToken:(token: string) => void;
-  authenticateUser:() => void
+  authenticateUser:() => void;
+  logOutUser: ()=> void;
 }
 
 
-const AuthContext = React.createContext<AuthContextType | null>(null)
-
+const AuthContext = React.createContext<AuthContextType>(
+ { isLoggedIn: false,
+    isLoading: false,
+    user: null,
+    storeToken: () => {},
+    authenticateUser: () => {},
+    logOutUser: () => {},
+}
+)
+if (!AuthContext) {
+  throw new Error("AuthContext must be used within an AuthProviderWrapper");
+}
 
 function AuthProviderWrapper(props:any) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -90,7 +101,8 @@ function AuthProviderWrapper(props:any) {
         isLoading,
         user,
         storeToken,
-        authenticateUser       
+        authenticateUser,
+        logOutUser     
       }}
     >
       {props.children}
